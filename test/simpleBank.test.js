@@ -17,7 +17,8 @@ contract('SimpleBank', function(accounts) {
     const aliceEnrolled = await bank.isEnrolled({from: alice});
     assert.equal(aliceEnrolled, true, 'enroll balance is incorrect, check balance method or constructor');
 
-    const ownerEnrolled = await bank.enroll({from: owner});
+    await bank.enroll({from: owner});
+    const ownerEnrolled = await bank.isEnrolled({from: owner});
     assert.equal(ownerEnrolled, false, 'only enrolled users should be marked enrolled');
   });
 
