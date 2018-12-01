@@ -12,10 +12,10 @@ contract('SimpleBank', function(accounts) {
 
     await bank.enroll({from: alice});
 
-    const aliceEnrolled = await bank.enrolled(alice, {from: alice});
+    const aliceEnrolled = await bank.enroll(alice, {from: alice});
     assert.equal(aliceEnrolled, true, 'enroll balance is incorrect, check balance method or constructor');
 
-    const ownerEnrolled = await bank.enrolled(owner, {from: owner});
+    const ownerEnrolled = await bank.enroll(owner, {from: owner});
     assert.equal(ownerEnrolled, false, 'only enrolled users should be marked enrolled');
   });
 
@@ -45,7 +45,7 @@ contract('SimpleBank', function(accounts) {
   it("should withdraw correct amount", async () => {
     const bank = await SimpleBank.deployed();
     const initialAmount = 0;
-   
+
     await bank.withdraw(deposit, {from: alice});
     const balance = await bank.balance({from: alice});
 
@@ -55,7 +55,7 @@ contract('SimpleBank', function(accounts) {
     const log = await new Promise(function(resolve, reject) {
       LogWithdrawal.watch(function(error, log){ resolve(log);});
     });
-    
+
     const accountAddress = log.args.accountAddress;
     const newBalance = log.args.newBalance.toNumber();
     const withdrawAmount = log.args.withdrawAmount.toNumber();
