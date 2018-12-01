@@ -58,7 +58,7 @@ contract SimpleBank {
     /// @return The users enrolled status
     // Emit the appropriate event
     function enroll() public returns (bool){
-        require(msg.sender != owner);
+        require(msg.sender != owner,"sender cannot be owner");
         enrolled[msg.sender] = true;
         balances[msg.sender] = 0;
         emit LogEnrolled(msg.sender);
