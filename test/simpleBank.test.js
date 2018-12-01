@@ -16,10 +16,14 @@ contract('SimpleBank', function(accounts) {
     await bank.enroll({from: alice});
     const aliceEnrolled = await bank.isEnrolled({from: alice});
     assert.equal(aliceEnrolled, true, 'enroll balance is incorrect, check balance method or constructor');
-
-    await bank.enroll({from: owner});
-    const ownerEnrolled = await bank.isEnrolled({from: owner});
-    assert.equal(ownerEnrolled, false, 'only enrolled users should be marked enrolled');
+    try {
+      await bank.enroll({from: owner});
+      assert.fail("It should fail");
+    } catch (e) {
+      assert.ok("Reverted");
+    }
+    //const ownerEnrolled = await bank.isEnrolled({from: owner});
+    //assert.equal(ownerEnrolled, false, 'only enrolled users should be marked enrolled');
   });
 
   it("should deposit correct amount", async () => {
