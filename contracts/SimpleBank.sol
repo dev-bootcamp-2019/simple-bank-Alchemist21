@@ -64,6 +64,10 @@ contract SimpleBank {
         emit LogEnrolled(msg.sender);
         return true;
     }
+    
+    function isEnrolled() public view returns (bool){
+        return enrolled[msg.sender];
+    }
 
     /// @notice Deposit ether into bank
     /// @return The balance of the user after the deposit is made
